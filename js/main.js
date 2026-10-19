@@ -45,20 +45,28 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   handleScroll();
 
+  const mobileDrawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+
   // Mobile Drawer Toggle
   if (mobileToggleBtn && mobileDrawer) {
     mobileToggleBtn.addEventListener('click', () => {
       mobileDrawer.classList.add('active');
+      if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.add('active');
       document.body.style.overflow = 'hidden';
     });
 
     const closeMobileMenu = () => {
       mobileDrawer.classList.remove('active');
+      if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.remove('active');
       document.body.style.overflow = '';
     };
 
     if (mobileDrawerClose) {
       mobileDrawerClose.addEventListener('click', closeMobileMenu);
+    }
+
+    if (mobileDrawerBackdrop) {
+      mobileDrawerBackdrop.addEventListener('click', closeMobileMenu);
     }
 
     document.querySelectorAll('.mobile-drawer-link').forEach(link => {
@@ -111,6 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // If mobile drawer is open, close it
       if (mobileDrawer && mobileDrawer.classList.contains('active')) {
         mobileDrawer.classList.remove('active');
+        if (mobileDrawerBackdrop) mobileDrawerBackdrop.classList.remove('active');
       }
       openModal();
     });
